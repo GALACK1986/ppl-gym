@@ -37,17 +37,56 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:
 .prevBanner{font-size:11px;color:#9fb0be;margin-bottom:8px;padding:7px 9px;border:1px solid #273b49;border-radius:6px;background:#09131c;display:flex;justify-content:space-between;gap:8px}.prevBanner b{color:#fff}
 @media(max-width:1100px){.shell{grid-template-columns:1fr;padding:8px}.sidebar{display:none}.tablehead{display:none}.exercise{display:block;border:1px solid var(--line);border-radius:10px;margin-bottom:9px;min-height:0;overflow:hidden}.details{grid-template-columns:150px 1fr;border-right:0;border-bottom:1px solid var(--line)}.photo{height:145px}.setarea{border-right:0;padding:9px 12px}.volume{display:flex;flex-direction:row;justify-content:space-between;padding:9px 13px;border-right:0;border-top:1px solid var(--line)}.volume:before{content:"Volumen"}.noteBtn{display:none}.noteRow{display:block}.summary{grid-template-columns:repeat(3,1fr);position:sticky;bottom:0;z-index:30}.sumTitle,.sumNotes{display:none}.topbar{height:60px;padding:0 12px}.logo{font-size:17px}.tag,.topaction{display:none}.daytabs{top:60px;padding:8px 9px}.daytab{min-width:78px;height:36px}.mobileStats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.mobileStats .box{padding:8px;text-align:center}.mobileStats b{display:block;font-size:18px}.statsGrid{grid-template-columns:1fr}}
 @media(max-width:620px){body{font-size:13px}.details{grid-template-columns:115px 1fr}.photo{height:125px}.exinfo{padding:8px}.exname{font-size:14px}.setlabels,.setrow,.prevrow{grid-template-columns:35px repeat(4,1fr);gap:4px}input{height:36px;font-size:15px}.summary{grid-template-columns:repeat(3,1fr)}.sumMetric{padding:8px 5px;text-align:center}.sumMetric b{font-size:18px}.floatingTimer{left:8px;right:8px;bottom:70px;width:auto}.rowtools{flex-wrap:wrap}}
+
+.mobileActions{display:none}
+@media(max-width:1100px){
+  .mobileActions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    padding:8px 9px;
+    background:#070d13;
+    border-bottom:1px solid #17212a;
+    position:sticky;
+    top:104px;
+    z-index:44;
+  }
+  .mobileActions button{
+    height:36px;
+    border-radius:7px;
+    border:1px solid #344653;
+    background:#101820;
+    color:#fff;
+    font-size:11px;
+    font-weight:850;
+  }
+  .mobileActions button:first-child{
+    background:linear-gradient(180deg,#ff4351,#e52938);
+    border-color:#ff4856;
+  }
+}
+@media(max-width:620px){
+  .mobileActions{top:104px}
+}
+
 </style></head>
 <body>
 <div class="app">
-<header class="topbar"><div><div class="logo">🏋️ PPL 6 DÍAS · <em>V5 PREMIUM</em></div><div class="tag">Progresión · PR · Temporizador · Estadísticas</div></div><div class="topspacer"></div><button class="topaction" onclick="openHistory()">◷ Historial</button><button class="topaction blue" onclick="openStats()">▥ Estadísticas</button><button class="topaction red" onclick="exportCSV()">⇩ Exportar CSV</button><button class="topaction" onclick="document.getElementById('file').click()">⇧ Importar</button><input id="file" type="file" accept=".csv" hidden onchange="importCSV(event)"></header>
+<header class="topbar"><div><div class="logo">🏋️ GALACTICO <em>APP</em></div><div class="tag">Progresión · PR · Temporizador · Estadísticas</div></div><div class="topspacer"></div><button class="topaction" onclick="openHistory()">◷ Historial</button><button class="topaction blue" onclick="openStats()">▥ Estadísticas</button><button class="topaction red" onclick="exportCurrentSessionCSV()">⇩ Sesión actual</button><button class="topaction" onclick="exportCSV()">⇩ Historial CSV</button><button class="topaction" onclick="document.getElementById('file').click()">⇧ Importar</button><input id="file" type="file" accept=".csv" hidden onchange="importCSV(event)"></header>
 <nav class="daytabs" id="daytabs"></nav>
+
+<div class="mobileActions">
+  <button onclick="exportCurrentSessionCSV()">⇩ Sesión</button>
+  <button onclick="exportCSV()">⇩ Historial</button>
+  <button onclick="document.getElementById('file').click()">⇧ Importar</button>
+</div>
+
 <div class="shell">
 <aside class="sidebar">
 <section class="box"><div class="sessionTitle"><span class="ico">💪</span><span id="sideDay">PUSH A</span></div><div class="focus" id="sideFocus"></div><div class="statline"><span>Series completadas</span><b id="sSets">0</b></div><div class="statline"><span>Repeticiones</span><b id="sReps">0</b></div><div class="statline"><span>Volumen total</span><b id="sVol">0 kg</b></div></section>
 <section class="box"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><b>Sesión actual</b><span id="date"></span></div><button class="save" onclick="saveSession()">▣ Guardar sesión</button></section>
 <section id="sideDays"></section>
-<section class="box"><b style="font-size:16px">V5 · progresión</b><div class="tip">Compara cada serie con tu sesión anterior.</div><div class="tip">Usa “Copiar anterior” para cargar pesos/reps.</div><div class="tip">PR detectados automáticamente por carga y volumen.</div><div class="tip">Temporizador usa el descanso recomendado del ejercicio.</div></section>
+<section class="box"><b style="font-size:16px">V5.1 · progresión</b><div class="tip">Compara cada serie con tu sesión anterior.</div><div class="tip">Usa “Copiar anterior” para cargar pesos/reps.</div><div class="tip">PR detectados automáticamente por carga y volumen.</div><div class="tip">Temporizador usa el descanso recomendado del ejercicio.</div></section>
 </aside>
 <main class="main">
 <div class="mobileStats"><div class="box"><b id="mSets">0</b>series</div><div class="box"><b id="mReps">0</b>reps</div><div class="box"><b id="mVol">0 kg</b>volumen</div></div>
@@ -55,7 +94,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:
 <div class="tablehead"><div>#</div><div class="left">EJERCICIO</div><div>SERIES · HOY + SESIÓN ANTERIOR</div><div>TOTAL VOL.</div><div>NOTAS</div></div>
 <div id="exerciseList"></div>
 <section class="summary"><div class="sumTitle"><span>Σ</span>Resumen sesión</div><div class="sumMetric">SERIES TOTALES<b id="sumSets">0</b></div><div class="sumMetric">REPS TOTALES<b id="sumReps">0</b></div><div class="sumMetric red">VOLUMEN TOTAL<b id="sumVol">0 kg</b></div><div class="sumNotes"><textarea id="generalNotes" placeholder="Escribe aquí tus notas de la sesión..."></textarea></div></section>
-<div class="foot">V5 guarda tus datos localmente en el dispositivo. El historial V4 se migra automáticamente la primera vez.</div>
+<div class="foot">V5.1 guarda tus datos localmente en el dispositivo. El historial V4 se migra automáticamente la primera vez.</div>
 </main></div></div>
 
 <div id="floatTimer" class="floatingTimer"><div class="timerHead"><b id="timerName">Descanso</b><span id="timerTarget"></span></div><div class="timerBody"><div class="clock" id="clock">01:30</div><div class="timerBtns"><button onclick="toggleTimer()" id="pauseBtn">Pausar</button><button class="plus" onclick="addTimer(30)">+30 s</button><button onclick="resetTimer()">Reiniciar</button><button onclick="closeTimer()">Cerrar</button></div></div></div>
@@ -141,7 +180,27 @@ function drawVolumeChart(){let h=hist().slice().sort((a,b)=>new Date(a.date)-new
 function drawExerciseChart(){let name=exerciseSelect.value,eh=exerciseHistory(name).slice(-20),pts=eh.map(x=>{let v=0;x.exercise.sets.forEach(s=>v+=(+s.w||0)*(+s.r||0));return v}),labs=eh.map(x=>new Date(x.date).toLocaleDateString("es-ES",{day:"2-digit",month:"2-digit"}));drawLine(exChart,pts,labs)}
 function renderPRTable(){let names=D.flatMap(d=>workouts[d].map(e=>e.n)).filter((v,i,a)=>a.indexOf(v)===i),rows=names.map(n=>{let p=exercisePR(n);return p.maxW||p.maxV?`<tr><td>${n}</td><td>${p.maxW||"—"} kg</td><td>${p.maxReps||"—"}</td><td>${p.maxV?Math.round(p.maxV).toLocaleString("es-ES"):"—"} kg</td></tr>`:""}).join("");prTable.innerHTML=`<table class="prtable"><thead><tr><th>Ejercicio</th><th>Máx. carga</th><th>Máx. reps</th><th>Máx. volumen</th></tr></thead><tbody>${rows||"<tr><td colspan=4>Guarda sesiones para generar PR.</td></tr>"}</tbody></table>`}
 function esc(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
-function exportCSV(){let h=hist(),rows=[["fecha","dia","ejercicio","serie","peso_kg","reps","rir","nota_ejercicio","nota_sesion"]];h.forEach(x=>x.exercises.forEach(e=>e.sets.forEach((s,k)=>rows.push([x.date,x.day,e.name,k+1,s.w,s.r,s.rir,e.note,x.notes]))));let text="\ufeff"+rows.map(r=>r.map(esc).join(";")).join("\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));a.download="PPL_sesiones_V5.csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+
+function exportCurrentSessionCSV(){
+  const x=collect();
+  if(!x.exercises.some(e=>e.sets.some(s=>+s.w||+s.r))){
+    return alert("No hay datos registrados en la sesión actual.");
+  }
+  const rows=[["fecha","dia","ejercicio","serie","peso_kg","reps","rir","nota_ejercicio","nota_sesion"]];
+  x.exercises.forEach(e=>e.sets.forEach((s,k)=>{
+    if(+s.w||+s.r||+s.rir){
+      rows.push([x.date,x.day,e.name,k+1,s.w,s.r,s.rir,e.note,x.notes]);
+    }
+  }));
+  const text="\ufeff"+rows.map(r=>r.map(esc).join(";")).join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));
+  const fecha=new Date().toISOString().slice(0,10);
+  a.download=`GALACTICO_APP_${x.day.replaceAll(" ","_")}_${fecha}.csv`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function exportCSV(){let h=hist(),rows=[["fecha","dia","ejercicio","serie","peso_kg","reps","rir","nota_ejercicio","nota_sesion"]];h.forEach(x=>x.exercises.forEach(e=>e.sets.forEach((s,k)=>rows.push([x.date,x.day,e.name,k+1,s.w,s.r,s.rir,e.note,x.notes]))));let text="\ufeff"+rows.map(r=>r.map(esc).join(";")).join("\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv;charset=utf-8"}));a.download="GALACTICO_APP_historial.csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function parseLine(l){let o=[],c="",q=false;for(let i=0;i<l.length;i++){if(l[i]=='"'){if(q&&l[i+1]=='"'){c+='"';i++}else q=!q}else if(l[i]==';'&&!q){o.push(c);c=""}else c+=l[i]}o.push(c);return o}
 function importCSV(ev){let f=ev.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{let lines=rd.result.replace(/^\ufeff/,"").split(/\r?\n/).filter(Boolean);lines.shift();let map={};lines.forEach(l=>{let [date,d,name,serie,w,r,rir,en,sn]=parseLine(l),k=date+"|"+d;if(!map[k])map[k]={date,day:d,notes:sn,exercises:[]};let e=map[k].exercises.find(x=>x.name===name);if(!e){e={name,sets:[],note:en};map[k].exercises.push(e)}e.sets[serie-1]={w,r,rir}});let old=hist(),all=[...Object.values(map),...old],seen=new Set();all=all.filter(x=>{let k=x.date+"|"+x.day;if(seen.has(k))return false;seen.add(k);return true});setHist(all);alert("CSV importado correctamente.");render()};rd.readAsText(f)}
 migrateV4();renderNav();render();
