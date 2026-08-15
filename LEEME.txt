@@ -1,8 +1,0 @@
-PPL GYM PWA
-
-1. Publica esta carpeta completa en un hosting HTTPS.
-2. Abre la URL en Safari del iPhone.
-3. Pulsa Compartir > Añadir a pantalla de inicio.
-4. Abre PPL Gym desde el icono.
-
-Las imágenes de ejercicios usan URLs fijas externas y se irán cacheando al abrirlas.
