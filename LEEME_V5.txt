@@ -1,0 +1,23 @@
+PPL GYM V5 PREMIUM
+
+Novedades:
+- Sesión anterior visible por serie.
+- Copiar ejercicio o sesión anterior.
+- Comparación de volumen y tendencia.
+- PR de carga, repeticiones y volumen.
+- Temporizador por ejercicio (+30 s, pausa, reinicio).
+- Estadísticas: volumen por sesión y por ejercicio.
+- Historial y eliminación de sesiones.
+- Migración automática del historial V4.
+- CSV import/export.
+
+ACTUALIZACIÓN EN GITHUB:
+Sustituye en la raíz del repositorio:
+index.html
+manifest.webmanifest
+sw.js
+icon-192.png
+icon-512.png
+
+Haz Commit changes y espera al despliegue de GitHub Pages.
+Si la PWA del iPhone sigue mostrando V4, ciérrala completamente y vuelve a abrirla.
