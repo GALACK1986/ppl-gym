@@ -1,0 +1,22 @@
+{
+  "name": "PPL 6 Días · Gym Tracker",
+  "short_name": "PPL Gym",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050a10",
+  "theme_color": "#050a10",
+  "description": "Registro PPL de 6 días con pesos, repeticiones, RIR, historial y CSV.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
