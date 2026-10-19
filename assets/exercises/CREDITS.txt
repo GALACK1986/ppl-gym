@@ -1,0 +1,3 @@
+Fotografías: free-exercise-db, https://github.com/yuhonas/free-exercise-db
+Licencia: véase LICENSE.txt. Imagen 1 de cada ejercicio (posición de ejecución).
+Las variantes no exactas se identifican en el texto de la app.

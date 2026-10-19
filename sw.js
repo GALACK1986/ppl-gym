@@ -1,5 +1,13 @@
-const CACHE="galactico-app-v5-3";
-const CORE=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png"];
-self.addEventListener("install",e=>{{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)));self.skipWaiting()}});
-self.addEventListener("activate",e=>{{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))));self.clients.claim()}});
-self.addEventListener("fetch",e=>{{if(e.request.method!=="GET")return;e.respondWith(fetch(e.request).then(r=>{{let c=r.clone();caches.open(CACHE).then(x=>x.put(e.request,c)).catch(()=>{{}});return r}}).catch(()=>caches.match(e.request).then(x=>x||caches.match("./index.html"))))}});
+const CACHE="galactico-app-v5-4";
+const CORE=["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./assets/exercises/Alternate_Incline_Dumbbell_Curl.jpg", "./assets/exercises/Barbell_Curl.jpg", "./assets/exercises/Barbell_Full_Squat.jpg", "./assets/exercises/Butterfly.jpg", "./assets/exercises/Cable_Crossover.jpg", "./assets/exercises/Cable_Rear_Delt_Fly.jpg", "./assets/exercises/Dip_Machine.jpg", "./assets/exercises/Dumbbell_Bench_Press.jpg", "./assets/exercises/Dumbbell_Flyes.jpg", "./assets/exercises/Dumbbell_Lying_Rear_Lateral_Raise.jpg", "./assets/exercises/Incline_Dumbbell_Flyes.jpg", "./assets/exercises/Leg_Extensions.jpg", "./assets/exercises/Leg_Press.jpg", "./assets/exercises/Leverage_High_Row.jpg", "./assets/exercises/Leverage_Shoulder_Press.jpg", "./assets/exercises/Lying_Leg_Curls.jpg", "./assets/exercises/Lying_Triceps_Press.jpg", "./assets/exercises/Machine_Bench_Press.jpg", "./assets/exercises/Rope_Straight-Arm_Pulldown.jpg", "./assets/exercises/Seated_Cable_Rows.jpg", "./assets/exercises/Seated_Leg_Curl.jpg", "./assets/exercises/Seated_Side_Lateral_Raise.jpg", "./assets/exercises/Smith_Machine_Behind_the_Back_Shrug.jpg", "./assets/exercises/Smith_Machine_Bent_Over_Row.jpg", "./assets/exercises/Smith_Machine_Overhead_Shoulder_Press.jpg", "./assets/exercises/Stiff-Legged_Dumbbell_Deadlift.jpg", "./assets/exercises/T-Bar_Row_with_Handle.jpg", "./assets/exercises/Triceps_Pushdown.jpg", "./assets/exercises/Underhand_Cable_Pulldowns.jpg", "./assets/exercises/Upright_Cable_Row.jpg", "./assets/exercises/V-Bar_Pulldown.jpg", "./assets/exercises/Weighted_Sissy_Squat.jpg", "./assets/exercises/Wide-Grip_Lat_Pulldown.jpg"];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)));self.skipWaiting()});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith("galactico-app-")&&k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
+self.addEventListener("fetch",e=>{
+ if(e.request.method!=="GET")return;
+ const u=new URL(e.request.url);
+ if(u.origin!==self.location.origin)return;
+ if(u.pathname.includes("/assets/exercises/")){
+  e.respondWith(caches.match(e.request).then(hit=>hit||fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));}return r})));return;
+ }
+ e.respondWith(fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});}return r}).catch(()=>caches.match(e.request).then(hit=>hit||(e.request.mode==="navigate"?caches.match("./index.html"):Response.error()))));
+});
